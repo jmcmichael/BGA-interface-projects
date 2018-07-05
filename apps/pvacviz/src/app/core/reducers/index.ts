@@ -74,6 +74,11 @@ export const {
   selectAll: getAllProcesses,
 } = fromProcesses.adapter.getSelectors(getProcessesState);
 
+export const getApiProcessesMeta = createSelector(
+  getCoreState,
+  core => core.processes.meta
+)
+
 export const getRouteProcessId = createSelector(
   fromRoot.getRouterState,
   router => router.state.params.processId
