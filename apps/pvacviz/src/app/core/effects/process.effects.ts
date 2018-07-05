@@ -17,7 +17,9 @@ import {
 } from 'rxjs/operators';
 
 import { Process } from '../models/process.model';
+import { ApiProcessesResponse } from '../models/api-responses.model';
 import { ProcessService } from '../services/process.service';
+
 
 import {
   ProcessActionTypes,
@@ -63,7 +65,7 @@ export class ProcessEffects {
       return this.processes
         .query()
         .pipe(
-          map((processes: Process[]) => new LoadSuccess(processes)),
+          map((result: ApiProcessesResponse) => new LoadSuccess(result)),
           catchError(err => of(new LoadFail(err)))
         );
     })

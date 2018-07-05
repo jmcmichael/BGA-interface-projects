@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Process } from '../models/process.model';
+import { ApiProcessesResponse } from '../models/api-responses.model';
 
 export enum ProcessActionTypes {
   Load = '[Processes] Load Processes',
@@ -33,7 +34,7 @@ export class Load implements Action {
 export class LoadSuccess implements Action {
   readonly type = ProcessActionTypes.LoadSuccess;
 
-  constructor(public payload: Process[]) { }
+  constructor(public payload: ApiProcessesResponse) { }
 }
 
 export class LoadFail implements Action {

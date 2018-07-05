@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { Process } from '../../core/models/process.model';
-import { ApiStartResponse } from '../../core/models/api-responses.model';
+import { ApiStartResponse, ApiProcessesResponse, ApiMeta } from '../../core/models/api-responses.model';
 
 @Injectable()
 export class ProcessService {
@@ -11,10 +11,10 @@ export class ProcessService {
 
   constructor(private http: HttpClient) { }
 
-  query(): Observable<Process[]> {
+  query(): Observable<ApiProcessesResponse> {
     return this.http
-      .get<{ result: Process[] }>(`${this.API_PATH}/processes`)
-      .pipe(map(processes => processes.result || []));
+      .get<ApiProcessesResponse>(`${this.API_PATH}/processes`);
+    // .pipe(map(result => result as ApiProcessesResponse));
   }
 
   get(id): Observable<Process> {

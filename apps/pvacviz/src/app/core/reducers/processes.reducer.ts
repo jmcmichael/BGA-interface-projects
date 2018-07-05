@@ -5,6 +5,8 @@ import 'rxjs/add/observable/of';
 import { Process } from '../models/process.model';
 import { ProcessActions, ProcessActionTypes } from '../actions/process.actions';
 
+import { ApiMeta } from '../models/api-responses.model';
+
 /**
  * @ngrx/entity provides a predefined interface for handling
  * a structured dictionary of records. This interface
@@ -16,6 +18,7 @@ export interface State extends EntityState<Process> {
   loading: boolean;
   loaded: boolean;
   error: string;
+  meta: ApiMeta;
 }
 
 /**
@@ -39,6 +42,7 @@ export const adapter: EntityAdapter<Process> = createEntityAdapter<Process>({
 export const initialState: State = adapter.getInitialState({
   loading: false,
   loaded: false,
+  meta: null,
   error: ''
 });
 
@@ -60,9 +64,10 @@ export function reducer(state = initialState, action: ProcessActions): State {
          * the collection is to be sorted, the adapter will
          * sort each record upon entry into the sorted array.
          */
-        ...adapter.addMany(action.payload, state),
+        ...adapter.addMany(action.payload.result, state),
         loading: false,
-        loaded: true
+        loaded: true,
+        meta: action.payload._meta
       };
 
     case ProcessActionTypes.LoadFail:

@@ -19,8 +19,8 @@ import {
 import { Process } from '../../core/models/process.model';
 import { ProcessService } from '../../core/services/process.service';
 import {
-  ManageActionTypes,
-  ManageActions,
+  ProcessActionTypes,
+  ProcessActions,
   Load,
   LoadSuccess,
   LoadFail,
@@ -31,11 +31,12 @@ import {
   Archive,
   ArchiveSuccess,
   ArchiveFail
-} from '../actions/manage.actions';
+} from '../../core/actions/process.actions';
 
 import * as fromRoot from '../../reducers';
 import { Store, select } from '@ngrx/store';
 import { getRouterState } from '../reducers';
+import { ApiProcessesResponse } from '../../core/models/api-responses.model';
 
 /**
  * Effects offer a way to isolate and easily test side-effects within your
@@ -58,12 +59,12 @@ export class ProcessEffects {
 
   @Effect()
   query$: Observable<Action> = this.actions$.pipe(
-    ofType<Load>(ManageActionTypes.Load),
+    ofType<Load>(ProcessActionTypes.Load),
     switchMap(query => {
       return this.processes
         .query()
         .pipe(
-          map((processes: Process[]) => new LoadSuccess(processes)),
+          map((result: ApiProcessesResponse) => new LoadSuccess(result)),
           catchError(err => of(new LoadFail(err)))
         );
     })
@@ -71,7 +72,7 @@ export class ProcessEffects {
 
   @Effect()
   get$: Observable<Action> = this.actions$.pipe(
-    ofType<LoadDetail>(ManageActionTypes.LoadDetail),
+    ofType<LoadDetail>(ProcessActionTypes.LoadDetail),
     withLatestFrom(
       this.store.select(getRouterState),
       (action, router) => {
@@ -94,7 +95,7 @@ export class ProcessEffects {
   // otherwise the router state processId is used.
   @Effect()
   archive$: Observable<Action> = this.actions$.pipe(
-    ofType<Archive>(ManageActionTypes.Archive),
+    ofType<Archive>(ProcessActionTypes.Archive),
     withLatestFrom(
       this.store.select(getRouterState),
       (action, router) => {
@@ -124,7 +125,7 @@ export class ProcessEffects {
   // https://stackoverflow.com/questions/47554267/dispatch-multiple-action-from-one-effect
   @Effect()
   requery$: Observable<Action> = this.actions$.pipe(
-    ofType<ArchiveSuccess>(ManageActionTypes.ArchiveSuccess),
+    ofType<ArchiveSuccess>(ProcessActionTypes.ArchiveSuccess),
     switchMap((action) => {
       return Observable.of(new Remove(action.payload.id))
     })
