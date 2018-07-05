@@ -42,7 +42,7 @@ export const adapter: EntityAdapter<Process> = createEntityAdapter<Process>({
 export const initialState: State = adapter.getInitialState({
   loading: false,
   loaded: false,
-  meta: null,
+  meta: { current_page: null, per_page: null, total_count: null, total_pages: null },
   error: ''
 });
 
