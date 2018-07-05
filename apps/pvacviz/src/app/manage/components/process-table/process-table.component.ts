@@ -18,6 +18,7 @@ import { Parameters } from '../../../core/models/parameters.model';
 
 import * as processes from '../../actions/manage.actions';
 import * as fromProcesses from '../../reducers';
+import { ApiMeta } from '../../../core/models/api-responses.model';
 
 @Component({
   selector: 'pvz-process-table',
@@ -27,9 +28,15 @@ import * as fromProcesses from '../../reducers';
 })
 export class ProcessTableComponent implements OnInit {
   @Input() processes: Process[];
+  @Input() processesMeta: ApiMeta;
 
   ascSort;
   descSort;
+
+  currentPage;
+  perPage;
+  totalCount;
+  totalPages;
 
   idComparator = new IdComparator();
 
@@ -38,6 +45,7 @@ export class ProcessTableComponent implements OnInit {
     this.descSort = SortOrder.Desc;
 
     console.log(this.processes);
+    console.log(this.processesMeta);
 
     // this.processes = this.processes.map((process) => {
     //   return process;

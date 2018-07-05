@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { filter, map } from 'rxjs/operators';
 
 import { Process } from '../../../core/models/process.model';
+import { ApiMeta } from '../../../core/models/api-responses.model';
 import * as processes from '../../../core/actions/process.actions';
 import * as fromCore from '../../../core/reducers';
 
@@ -18,10 +19,12 @@ import * as fromCore from '../../../core/reducers';
 export class ManagePageComponent implements OnInit {
 
   processes$: Observable<Process[]>;
+  processesMeta$: Observable<ApiMeta>;
   inputFiles$: Observable<string[]>;
 
   constructor(private store: Store<fromCore.State>) {
     this.processes$ = store.pipe(select(fromCore.getAllProcesses));
+    this.processesMeta$ = store.pipe(select(fromCore.getApiProcessesMeta))
     this.inputFiles$ = this.processes$.pipe(filter(val => !!val), map(
       (processes) => {
         return processes.map((process) => {

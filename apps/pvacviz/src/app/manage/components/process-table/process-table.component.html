@@ -39,7 +39,21 @@
         </clr-dg-action-overflow>
       </clr-dg-row>
 
-      <clr-dg-footer></clr-dg-footer>
+      <clr-dg-footer>
+        <clr-dg-pagination
+          [clrDgPageSize]="processesMeta.per_page"
+          [(clrDgPage)]="processesMeta.current_page"
+          [clrDgTotalItems]="processesMeta.total_pages"
+          [clrDgLastPage]="2">
+        </clr-dg-pagination>
+      </clr-dg-footer>
     </clr-datagrid>
+  </div>
+</div>
+<div class="row" >
+  <div class="col-xs-12" >
+    <pre>
+      {{ processesMeta | json }}
+    </pre>
   </div>
 </div>

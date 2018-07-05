@@ -15,7 +15,14 @@
 <div class="page-content">
   <div class="row">
     <div class="col-xs-12">
-      <pvz-process-table [processes]="processes$ | async"></pvz-process-table>
+      <pvz-process-table [processes]="processes$ | async" [processesMeta]="processesMeta$ | async"></pvz-process-table>
     </div>
+  </div>
+</div>
+<div class="row" >
+  <div class="col-xs-12" >
+    <pre>
+      {{ processesMeta$ | async | json }}
+    </pre>
   </div>
 </div>
