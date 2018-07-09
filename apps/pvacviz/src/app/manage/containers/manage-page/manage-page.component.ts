@@ -45,6 +45,11 @@ export class ManagePageComponent implements OnInit {
     this.store.dispatch(new processes.Load());
   }
 
+  onRefresh(state) {
+    console.log('onRefresh ==============')
+    console.log(state);
+  }
+
   archive(id) {
     this.store.dispatch(new processes.Archive(id));
   }

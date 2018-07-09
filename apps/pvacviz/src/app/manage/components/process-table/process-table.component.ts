@@ -3,12 +3,17 @@ import {
   ChangeDetectionStrategy,
   OnInit,
   Input,
+  Output,
+  EventEmitter,
   OnChanges,
   SimpleChanges
 } from '@angular/core';
 
-import { SortOrder, ClrDatagridComparatorInterface } from '@clr/angular';
-
+import {
+  SortOrder,
+  ClrDatagridComparatorInterface,
+  ClrDatagridStateInterface
+} from '@clr/angular';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { filter, map } from 'rxjs/operators';
@@ -29,6 +34,7 @@ import { ApiMeta } from '../../../core/models/api-responses.model';
 export class ProcessTableComponent implements OnInit {
   @Input() processes: Process[];
   @Input() processesMeta: ApiMeta;
+  @Output() refresh = new EventEmitter();
 
   ascSort;
   descSort;
