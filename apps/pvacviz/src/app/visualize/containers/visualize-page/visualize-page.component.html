@@ -1,17 +1,29 @@
 <div class="page-header">
   <div class="row">
-    <div class="col-xs-8">
+    <div class="col-xs-6">
       <h3 class="page-title">
         <span class="page-type">Visualize Process Results</span>
       </h3>
     </div>
-    <div class="col-xs-4 text-right page-buttons">
+    <div class="col-xs-6">
+      <h3 class="page-title">
+        <span class="page-type">Visualize Dropbox Files</span>
+      </h3>
     </div>
   </div>
 </div>
-<div class="page-content" >
-  <div class="row" >
-    <div class="col-xs-12" >
+<div class="page-content">
+  <div class="row">
+    <div class="col-xs-6">
+      <ng-container [ngSwitch]="(processesWithVisualizableFiles$ | async)?.length > 0">
+        <p *ngSwitchCase="true" >
+          Listed below are processes with visualizable files.<br/>
+        </p>
+        <p *ngSwitchDefault>
+          No processes found with visualizable files.
+        </p>
+      </ng-container>
+      <p></p>
       <div class="card" *ngFor="let process of (processesWithVisualizableFiles$ | async)">
         <div class="card-header">
           <div class="row">
@@ -26,27 +38,25 @@
             <table class="table table-compact table-noborder file-table">
               <thead>
                 <tr>
-                  <th class="left">&nbsp;</th>
+                  <th class="left">Filename</th>
                   <th class="left">Description</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
                 <ng-container [ngSwitch]="process.files.length > 0">
-                  <ng-container *ngSwitchCase="true" >
+                  <ng-container *ngSwitchCase="true">
                     <ng-container *ngFor="let file of process.files">
                       <tr *ngIf="(file.display_name.includes('final\.tsv') || file.display_name.includes('combined\.parsed\.tsv' ))">
                         <td class="left">{{file.display_name.split('/').slice(-1)}}</td>
                         <td class="left">{{file.description}}</td>
                         <td class="right">
-                          <button [routerLink]="['/visualize/process', process.id, 'results', file.fileID]"
-                            [disabled]="!(file.display_name.includes('final\.tsv') || file.display_name.includes('combined\.parsed\.tsv' ))"
-                            class="btn btn-sm btn-link">Visualize</button>
+                          <button [routerLink]="['/visualize/process', process.id, 'results', file.fileID]" class="btn btn-sm btn-link">Visualize</button>
                         </td>
                       </tr>
                     </ng-container>
                   </ng-container>
-                  <ng-container *ngSwitchCase="false" >
+                  <ng-container *ngSwitchCase="false">
                     <tr>
                       <td colspan="3">
                         Process produced no files.
@@ -61,6 +71,43 @@
 
       </div>
     </div>
+    <div class="col-xs-6">
+      <ng-container [ngSwitch]="(dropboxFiles$ | async)?.length > 0">
+        <p *ngSwitchCase="true" >
+          Listed below are all visualizable files found in ~/pVACseq/Dropbox/.
+          Files?: {{(dropboxFiles$ | async)?.length > 0}}
+          Length: {{(dropboxFiles$ | async)?.length }}
+        </p>
+        <p *ngSwitchDefault>
+          No visualizable files found in ~/pVACseq/Dropbox/.
+        </p>
+      </ng-container>
+      <div class="card" *ngIf="(dropboxFiles$ | async)?.length > 0">
+        <div class="card-block files">
+          <div class="card-text">
+            <table class="table table-compact table-noborder file-table">
+              <thead>
+                <tr>
+                  <th class="left">Filename</th>
+                  <th class="left">Description</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let file of (dropboxFiles$ | async)">
+                  <tr>
+                    <td class="left">{{file.display_name}}</td>
+                    <td class="left">{{file.description}}</td>
+                    <td class="right">
+                      <button [routerLink]="['/visualize/process', '-1', 'results', file.fileID]" class="btn btn-sm btn-link">Visualize</button>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<!-- <pre>{{(processesWithVisualizableFiles$ | async) | json}}</pre> -->

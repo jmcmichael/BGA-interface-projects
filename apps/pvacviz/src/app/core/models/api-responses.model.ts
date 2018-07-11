@@ -7,8 +7,6 @@ export interface ApiStartResponse {
   processid: number;
 }
 
-export interface ApiInputResponse extends Array<File> { }
-
 export interface ApiMeta {
   current_page: number,
   per_page: number,
@@ -20,3 +18,6 @@ export interface ApiProcessesResponse {
   _meta: ApiMeta,
   result: Process[]
 }
+
+export interface ApiInputResponse extends Array<File> { }
+export interface ApiDropboxResponse extends Array<File> { }

@@ -12,8 +12,11 @@ import { NotFoundComponent } from './containers/not-found/not-found.component';
 
 import { ProcessService } from './services/process.service';
 import { InputService } from './services/inputs.service';
+import { DropboxService } from './services/dropbox.service';
 
 import { ProcessEffects } from './effects/process.effects';
+import { DropboxEffects } from './effects/dropbox.effects';
+
 import { reducers } from './reducers';
 
 export const COMPONENTS = [
@@ -27,11 +30,12 @@ export const COMPONENTS = [
     RouterModule,
     ClarityModule,
     StoreModule.forFeature('core', reducers),
-    EffectsModule.forFeature([ProcessEffects])
+    EffectsModule.forFeature([ProcessEffects, DropboxEffects])
   ],
   providers: [
     ProcessService,
-    InputService
+    InputService,
+    DropboxService
   ],
   declarations: COMPONENTS,
   exports: COMPONENTS

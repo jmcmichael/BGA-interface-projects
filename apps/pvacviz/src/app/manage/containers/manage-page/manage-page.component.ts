@@ -32,7 +32,7 @@ export class ManagePageComponent implements OnInit {
             .split('/')
             .slice(-2)
             .join('/');
-        })
+        });
       }
     ))
   }
