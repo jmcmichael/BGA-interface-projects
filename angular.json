@@ -1,0 +1,227 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "pvacviz": {
+      "root": "",
+      "sourceRoot": "src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/pvacviz",
+            "index": "apps/pvacviz/src/index.html",
+            "main": "apps/pvacviz/src/main.ts",
+            "tsConfig": "apps/pvacviz/src/tsconfig.app.json",
+            "polyfills": "apps/pvacviz/src/polyfills.ts",
+            "assets": [
+              "apps/pvacviz/src/assets",
+              "apps/pvacviz/src/favicon.ico"
+            ],
+            "styles": [
+              "node_modules/@clr/ui/clr-ui.min.css",
+              "node_modules/@clr/icons/clr-icons.min.css",
+              "apps/pvacviz/src/styles.scss"
+            ],
+            "scripts": [
+              "node_modules/@webcomponents/custom-elements/custom-elements.min.js",
+              "node_modules/@clr/icons/clr-icons.min.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "apps/pvacviz/src/environments/environment.ts",
+                  "with": "apps/pvacviz/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "pvacviz:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "pvacviz:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "pvacviz:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "apps/pvacviz/src/../../../test.js",
+            "karmaConfig": "./karma.conf.js",
+            "polyfills": "apps/pvacviz/src/polyfills.ts",
+            "tsConfig": "apps/pvacviz/src/../../../tsconfig.spec.json",
+            "scripts": [
+              "node_modules/@webcomponents/custom-elements/custom-elements.min.js",
+              "node_modules/@clr/icons/clr-icons.min.js"
+            ],
+            "styles": [
+              "node_modules/@clr/ui/clr-ui.min.css",
+              "node_modules/@clr/icons/clr-icons.min.css",
+              "apps/pvacviz/src/styles.scss"
+            ],
+            "assets": [
+              "apps/pvacviz/src/assets",
+              "apps/pvacviz/src/favicon.ico"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "./tsconfig.spec.json",
+              "apps/pvacviz/src/tsconfig.app.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "pvacviz-e2e": {
+      "root": "",
+      "sourceRoot": "",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "./protractor.conf.js",
+            "devServerTarget": "pvacviz:serve"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/pvacviz/e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "$workspaceRoot": {
+      "root": "",
+      "sourceRoot": "src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/",
+            "index": "./index.html",
+            "main": "./main.ts",
+            "tsConfig": "./tsconfig.app.json",
+            "assets": [],
+            "styles": [],
+            "scripts": []
+          },
+          "configurations": {}
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "$workspaceRoot:build"
+          },
+          "configurations": {}
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "$workspaceRoot:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "./undefined",
+            "karmaConfig": "./karma.conf.js",
+            "scripts": [],
+            "styles": [],
+            "assets": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "./tsconfig.spec.json",
+              "apps/pvacviz/src/tsconfig.app.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "$workspaceRoot-e2e": {
+      "root": "",
+      "sourceRoot": "",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "./protractor.conf.js",
+            "devServerTarget": "$workspaceRoot:serve"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/pvacviz/e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "pvacviz",
+  "cli": {
+    "warnings": {
+      "typescriptMismatch": false
+    }
+  },
+  "schematics": {
+    "@nrwl/schematics:component": {
+      "prefix": "app",
+      "styleext": "css"
+    },
+    "@nrwl/schematics:directive": {
+      "prefix": "app"
+    }
+  }
+}

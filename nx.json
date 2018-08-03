@@ -1,0 +1,11 @@
+{
+  "npmScope": "bga-ui-projects",
+  "projects": {
+    "pvacviz": {
+      "tags": []
+    },
+    "pvacviz-e2e": {
+      "tags": []
+    }
+  }
+}
