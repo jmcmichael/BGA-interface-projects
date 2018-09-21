@@ -1,4 +1,22 @@
 <clr-main-container>
+  <div class="alert alert-app-level alert-info" *ngIf="showNotification">
+    <div class="alert-items">
+      <div class="alert-item static">
+        <div class="alert-icon-wrapper">
+          <clr-icon class="alert-icon" shape="info-circle"></clr-icon>
+        </div>
+        <div class="alert-text">
+          A new update is now available. Upgrade to v.1234.
+        </div>
+        <div class="alert-actions">
+          <button class="btn alert-action">Install Update</button>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="close" aria-label="Close">
+      <clr-icon aria-hidden="true" shape="close"></clr-icon>
+    </button>
+  </div>
   <clr-header class="header-4">
     <img src="assets/pvacviz-logo.png" width="155" height="60" />
   </clr-header>

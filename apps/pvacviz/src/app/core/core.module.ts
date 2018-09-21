@@ -1,7 +1,6 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
@@ -16,7 +15,6 @@ import { AlgorithmsService } from '@pvz/core/services/algorithms.service';
 import { AllelesService } from '@pvz/core/services/alleles.service';
 import { InputService } from '@pvz/core/services/inputs.service';
 import { DropboxService } from '@pvz/core/services/dropbox.service';
-
 import { ProcessEffects } from '@pvz/core/effects/process.effects';
 import { DropboxEffects } from '@pvz/core/effects/dropbox.effects';
 
@@ -41,7 +39,7 @@ export const COMPONENTS = [
     AlgorithmsService,
     AllelesService,
     InputService,
-    DropboxService
+    DropboxService,
   ],
   declarations: COMPONENTS,
   exports: COMPONENTS

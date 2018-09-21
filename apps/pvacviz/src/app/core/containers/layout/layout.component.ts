@@ -21,13 +21,15 @@ export class LayoutComponent implements OnDestroy {
   modalOpen: boolean;
   modalConfig$: Observable<ModalConfig>;
 
+  notification: string;
+  showNotification: boolean;
+
   subscriptions: Subscription[] = [];
 
-  constructor(private store: Store<fromCore.State>) {
-    /**
-     * Selectors can be layoutlied with the `select` operator which passes the state
-     * tree to the provided selector
-     */
+  constructor(
+    private store: Store<fromCore.State>,
+  ) {
+
     this.collapsed$ = this.store.pipe(select(fromCore.getCollapsed));
     this.modalOpen$ = this.store.pipe(select(fromCore.getModalOpen));
     this.modalConfig$ = this.store.pipe(select(fromCore.getModalConfig));
